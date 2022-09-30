@@ -19,7 +19,7 @@ struct CricleButtonView: View {
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
                     .foregroundColor(.secondary.opacity(0.25))
             }
-            .padding()
+        
     }
 }
 

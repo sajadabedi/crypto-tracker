@@ -15,6 +15,7 @@
 		646F5F2928E720340032EAA5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646F5F2828E720340032EAA5 /* HomeView.swift */; };
 		646F5F2D28E7216D0032EAA5 /* CricleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646F5F2C28E7216D0032EAA5 /* CricleButtonView.swift */; };
 		646F5F2F28E725EB0032EAA5 /* CricleButtonAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646F5F2E28E725EB0032EAA5 /* CricleButtonAnimationView.swift */; };
+		646F5F3228E7466A0032EAA5 /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646F5F3128E7466A0032EAA5 /* Coin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		646F5F2828E720340032EAA5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		646F5F2C28E7216D0032EAA5 /* CricleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CricleButtonView.swift; sourceTree = "<group>"; };
 		646F5F2E28E725EB0032EAA5 /* CricleButtonAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CricleButtonAnimationView.swift; sourceTree = "<group>"; };
+		646F5F3128E7466A0032EAA5 /* Coin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				646F5F2128E71D690032EAA5 /* Extensions */,
+				646F5F3028E746490032EAA5 /* Models */,
 				646F5F2428E71FF50032EAA5 /* Core */,
 				646F5F1328E71BAD0032EAA5 /* CryptoTrackerApp.swift */,
 				646F5F1528E71BAD0032EAA5 /* ContentView.swift */,
@@ -133,6 +136,14 @@
 				646F5F2E28E725EB0032EAA5 /* CricleButtonAnimationView.swift */,
 			);
 			path = CircleButton;
+			sourceTree = "<group>";
+		};
+		646F5F3028E746490032EAA5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				646F5F3128E7466A0032EAA5 /* Coin.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,6 +222,7 @@
 				646F5F1428E71BAD0032EAA5 /* CryptoTrackerApp.swift in Sources */,
 				646F5F2328E71D760032EAA5 /* Color.swift in Sources */,
 				646F5F2F28E725EB0032EAA5 /* CricleButtonAnimationView.swift in Sources */,
+				646F5F3228E7466A0032EAA5 /* Coin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
