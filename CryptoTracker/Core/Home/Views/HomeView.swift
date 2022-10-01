@@ -17,7 +17,7 @@ struct HomeView: View {
         VStack {
             homeHeader
                 .padding()
-            
+            SearchBarView(searchText: $vm.search)
             ColumnTitle
             
             if !showPortfolio {
