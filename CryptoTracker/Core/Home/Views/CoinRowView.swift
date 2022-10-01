@@ -40,13 +40,13 @@ extension CoinRowView {
     private var LeftColumn: some View {
         HStack(spacing: 0) {
             Text("\(coin.rank)")
-                .font(.caption)
+                .font(.caption.monospaced())
                 .foregroundColor(.secondary)
                 .frame(minWidth: 30)
             Circle()
                 .frame(width: 30, height: 30)
             Text(coin.symbol.uppercased())
-                .font(.headline)
+                .font(.headline.monospaced())
                 .padding(.leading, 6)
                 .foregroundColor(.accentColor)
         }
@@ -71,6 +71,7 @@ extension CoinRowView {
                 .foregroundColor(.accentColor)
             Text(coin.priceChangePercentage24H?.asPrecentString() ?? "")
                 .foregroundColor((coin.priceChange24H ?? 0) >= 0 ? .green : Color.theme.redColor)
+                .font(.subheadline.monospaced())
         }
         .frame(width: UIScreen.main.bounds.width / 3, alignment: .trailing)
     }
