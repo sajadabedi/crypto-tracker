@@ -77,6 +77,7 @@ extension HomeView {
         .listStyle(.plain)
     }
     
+    // MARK: Coin List
     private var PortfolioCoinList: some View {
         List {
             ForEach(vm.portfolioCoins) { coin in
