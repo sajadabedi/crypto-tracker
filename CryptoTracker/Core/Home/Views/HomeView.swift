@@ -17,6 +17,7 @@ struct HomeView: View {
         VStack {
             homeHeader
                 .padding()
+            HomeStatsView(showPortfolio: $showPortfolio)
             SearchBarView(searchText: $vm.search)
             ColumnTitle
             

@@ -223,5 +223,9 @@ class DeveloperPreview {
         priceChangePercentage24HInCurrency: 3952.64,
         currentHoldings: 1.5)
     
+    let stat1 = Statistic(title: "Market Cap", value: "$12.56Bn", precentageChange: 25.34)
+    let stat2 = Statistic(title: "Total Value", value: "$1.56Tr")
+    let stat3 = Statistic(title: "Total Value", value: "$50.4k", precentageChange: -12.34)
+    
 }
 
