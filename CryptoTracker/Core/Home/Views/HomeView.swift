@@ -10,13 +10,15 @@ import SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject private var vm: HomeViewModel
-    @State private var showPortfolio: Bool = false
+    @State private var showPortfolio: Bool = false // Animate right
+    @State private var showPortfolioView: Bool = false // New sheet
     
     var body: some View {
         // MARK: Content Layer
         VStack {
             homeHeader
                 .padding()
+                
             HomeStatsView(showPortfolio: $showPortfolio)
             SearchBarView(searchText: $vm.search)
             ColumnTitle
@@ -30,6 +32,11 @@ struct HomeView: View {
             }
             Spacer(minLength: 0)
         }
+        .sheet(isPresented: $showPortfolioView, content: {
+            PortfolioView().environmentObject(vm)
+            
+        })
+        
         
     }
 }
@@ -52,6 +59,9 @@ extension HomeView {
                 .background(
                     CricleButtonAnimationView(animate: $showPortfolio)
                 )
+                .onTapGesture {
+                    if showPortfolio { showPortfolioView.toggle() }
+                }
             Spacer()
             Text(showPortfolio ? "Portoflio" : "Live Prices")
                 .font(.title3)
@@ -72,9 +82,11 @@ extension HomeView {
             ForEach(vm.altCoins) { coin in
                 CoinRowView(coin: coin, showHoldingsColumn: false)
                     .listRowInsets(EdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 18))
+                    .listRowSeparator(.hidden)
             }
         }
         .listStyle(.plain)
+        
     }
     
     // MARK: Coin List
