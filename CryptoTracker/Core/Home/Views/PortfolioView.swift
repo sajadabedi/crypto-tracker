@@ -36,6 +36,9 @@ struct PortfolioView: View {
                 })
                 ToolbarItem(placement: .navigationBarTrailing) { trilingNavBarButton }
             }
+            .onChange(of: vm.search) { newValue in
+                if newValue == "" { removeSelectedCoin() }
+            }
         }
         
     }
