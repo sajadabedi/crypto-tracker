@@ -86,6 +86,9 @@ extension HomeView {
             }
         }
         .listStyle(.plain)
+        .refreshable {
+            vm.reloadData()
+        }
         
     }
     

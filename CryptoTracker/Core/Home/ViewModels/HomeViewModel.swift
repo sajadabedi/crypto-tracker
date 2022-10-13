@@ -20,6 +20,7 @@ class HomeViewModel: ObservableObject {
     private let coinDataService = CoinDataService()
     private let marketDataService = MarketDataService()
     private let portfolioDataService = PortfolioDataService()
+    private var isLoading: Bool = false
     private var cancellables = Set<AnyCancellable>()
     
     init() {
@@ -41,14 +42,7 @@ class HomeViewModel: ObservableObject {
         // Update Portfolio Coin
         $altCoins
             .combineLatest(portfolioDataService.$savedEntities)
-            .map { (coinModels, portfolioEntities) -> [Coin] in
-                coinModels.compactMap { (coin) -> Coin? in
-                    guard let entity = portfolioEntities.first(where: {$0.coinID == coin.id}) else  {
-                        return nil
-                    }
-                    return coin.updateHoldings(amount: entity.amount)
-                }
-            }
+            .map(mapAllCoinsToPortfolioCoins)
             .sink { [weak self] (coins) in
                 self?.portfolioCoins = coins
             }
@@ -60,6 +54,7 @@ class HomeViewModel: ObservableObject {
             .map(mapGlobalMarketData)
             .sink { [weak self] stats in
                 self?.statistic = stats
+                self?.isLoading = false
             }
             .store(in: &cancellables)
         
@@ -68,6 +63,13 @@ class HomeViewModel: ObservableObject {
     
     func updatePortfolio(coin: Coin, amount: Double) {
         portfolioDataService.updatePortfolio(coin: coin, amount: amount)
+    }
+    
+    func reloadData() {
+        isLoading = true
+        coinDataService.getCoins()
+        marketDataService.getData()
+        HapticManager.notification(type: .success)
     }
     
     private func filterCoins(text: String, coins: [Coin]) -> [Coin] {
@@ -81,6 +83,15 @@ class HomeViewModel: ObservableObject {
             return coin.name.lowercased().contains(lowercaseText) || //name
             coin.symbol.lowercased().contains(lowercaseText) || //symbol
             coin.id.lowercased().contains(lowercaseText) // id
+        }
+    }
+    
+    private func mapAllCoinsToPortfolioCoins(allCoins: [Coin], portfolioEntities: [PortfolioEntity]) -> [Coin] {
+        allCoins.compactMap { (coin) -> Coin? in
+            guard let entity = portfolioEntities.first(where: {$0.coinID == coin.id}) else  {
+                return nil
+            }
+            return coin.updateHoldings(amount: entity.amount)
         }
     }
     
