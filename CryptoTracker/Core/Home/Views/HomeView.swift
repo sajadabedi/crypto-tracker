@@ -13,12 +13,15 @@ struct HomeView: View {
     @State private var showPortfolio: Bool = false // Animate right
     @State private var showPortfolioView: Bool = false // New sheet
     
+    @State private var selectedCoin: Coin? = nil
+    @State private var showDetailView: Bool = false
+    
     var body: some View {
         // MARK: Content Layer
         VStack {
             homeHeader
                 .padding()
-                
+            
             HomeStatsView(showPortfolio: $showPortfolio)
             SearchBarView(searchText: $vm.search)
             ColumnTitle
@@ -32,10 +35,15 @@ struct HomeView: View {
             }
             Spacer(minLength: 0)
         }
-        .sheet(isPresented: $showPortfolioView, content: {
-            PortfolioView().environmentObject(vm)
-            
-        })
+        .sheet(isPresented: $showPortfolioView, content: { PortfolioView().environmentObject(vm) })
+        .background(
+            // TODO: repalcing with value:label
+            NavigationLink(destination: DetailLoadingView(coin: $selectedCoin),
+                           isActive: $showDetailView,
+                           label: {
+                               EmptyView()
+                           })
+        )
         
         
     }
@@ -78,11 +86,14 @@ extension HomeView {
     
     // MARK: Coin List
     private var AllCoinsList: some View {
-        List {
+        List{
             ForEach(vm.altCoins) { coin in
                 CoinRowView(coin: coin, showHoldingsColumn: false)
-                    .listRowInsets(EdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 18))
+                    .listRowInsets(EdgeInsets(top: 20, leading: 6, bottom: 20, trailing: 20))
                     .listRowSeparator(.hidden)
+                    .onTapGesture {
+                        segue(coin: coin)
+                    }
             }
         }
         .listStyle(.plain)
@@ -98,9 +109,17 @@ extension HomeView {
             ForEach(vm.portfolioCoins) { coin in
                 CoinRowView(coin: coin, showHoldingsColumn: true)
                     .listRowInsets(EdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 18))
+                    .onTapGesture {
+                        segue(coin: coin)
+                    }
             }
         }
         .listStyle(.plain)
+    }
+    
+    private func segue(coin: Coin) {
+        selectedCoin = coin
+        showDetailView.toggle()
     }
     
     // MARK: Column Title
@@ -141,7 +160,6 @@ extension HomeView {
                     vm.sortOption = vm.sortOption == .price ? .priceReversed : .price
                 }
             }
-            
         }
         .font(.footnote.monospaced().smallCaps().weight(.medium))
         .foregroundColor(.secondary)

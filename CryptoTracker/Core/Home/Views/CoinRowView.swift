@@ -23,6 +23,9 @@ struct CoinRowView: View {
             
         }
         .font(.subheadline)
+        .background(
+            .background
+        ) // To make the whole row tappable.
     }
 }
 
