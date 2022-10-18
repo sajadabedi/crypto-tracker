@@ -13,7 +13,7 @@ struct DetailLoadingView: View {
     @Binding var coin: Coin?
     
     var body: some View {
-        if let coin = coin {
+        if let coin = coin {
             DetailView(coin: coin)
         }
     }
@@ -32,7 +32,7 @@ struct DetailView: View {
     var body: some View {
         ScrollView{
             VStack(spacing: 20){
-                Text("hello")
+                ChartView(coin: vm.coin)
                     .frame(height: 150)
                 overviewTitle
                 Divider()
