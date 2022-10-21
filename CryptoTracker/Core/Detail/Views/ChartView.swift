@@ -13,11 +13,14 @@ struct ChartView: View {
     let data: [Double]
     let maxY: Double
     let minY: Double
+    let lineColor: Color
     
     init(coin: Coin) {
         self.data = coin.sparklineIn7D?.price ?? []
         self.maxY = data.max() ?? 0
         self.minY = data.min() ?? 0
+        let priceChange = (data.last ?? 0  ) - (data.first ?? 0)
+        lineColor = priceChange > 0 ? Color.green : Color.red
     }
     
     var body: some View {
@@ -31,8 +34,8 @@ struct ChartView: View {
                         
                 }
             }
-            .foregroundColor(.green)
-            .shadow(color: Color.green.opacity(0.6), radius: 5, y: 12)
+            .foregroundColor(lineColor)
+            .shadow(color: lineColor.opacity(0.6), radius: 5, y: 12)
         }
         .backgroundStyle(.regularMaterial)
     }
